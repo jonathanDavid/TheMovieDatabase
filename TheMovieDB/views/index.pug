@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p Todo esto esta en la primera pagina #{pageD} 
+  ul 
+    each movie in movies
+      li= movie.title
