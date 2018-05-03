@@ -1,10 +1,30 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+/*
+let http = require('http')
 
-/*GET users listing. 
-router.get('/', function(req, res, next) {
-  res.send('No ha buscado nada');
-});*/
+let options ={
+	host: 'api.themoviedb.org',
+	port: 80,
+	path: '/3/movie/550?api_key=b29ba2335d06cf242272f5d0955bcffb',
+	method: 'GET'
+
+};
+
+var price;
+http.request(options, function(res){
+	let body = '';
+
+	res.on('data', function(chunk){
+		body+=chunk;
+	});
+
+	res.on('end', function(){
+		price= JSON.parse(body);
+		console.log(price)
+	})
+}).end();*/
+
 
 router.get('/:id?',function(req,res){
  res.write('handler: /users/:id? \n');
