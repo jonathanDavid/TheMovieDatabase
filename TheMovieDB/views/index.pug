@@ -1,9 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p Todo esto esta en la primera pagina #{pageD} 
-  ul 
-    each movie in movies
-      li= movie.title
+	h1= title
+	p Welcome to #{title}
+	p Todo esto esta en la primera pagina #{pageD}
+
+
+	div(class="row justify-content-center")
+		each movie in movies
+			div(class="card rowdis m-2" )  
+				a(class="alink" href="./movie/"+movie.id)
+					div(class="row")
+						div(class="col")
+							img(src=imgUrl+movie.poster_path, class="img-fluid rounded" alt="Image post")
+						div(class="col")
+							div(class="row p-2 text-center")
+								h6: b= movie.title								 

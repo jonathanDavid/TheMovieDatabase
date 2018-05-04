@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	div(class="row justify-content-center bg-secondary")
+		div(class="col")
+			div(class="row")
+				input(class="btn" type="submit" value="Volver a la Lista") 
+			div(class="row")
+				div(class="col")
+					img(src=imgUrl+movieInfo.poster_path, class="img-fluid rounded" alt="Image post")
+				div(class="col")
+					h3: b= movieInfo.title		

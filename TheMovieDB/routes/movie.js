@@ -1,39 +1,60 @@
-let express = require('express');
-let router = express.Router();
-/*
-let http = require('http')
+const express = require('express');
+const router = express.Router();
+const request = require('request');
 
-let options ={
-	host: 'api.themoviedb.org',
-	port: 80,
-	path: '/3/movie/550?api_key=b29ba2335d06cf242272f5d0955bcffb',
-	method: 'GET'
+const api_key = "b29ba2335d06cf242272f5d0955bcffb";
+const options_movie = {
+    method: 'GET',
+    uri: '',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
 
-};
+const options_config ={
+    method: 'GET',
+    uri: `https://api.themoviedb.org/3/configuration?api_key=${api_key}`,
+    header: {
+        'Content-Type' : 'application/json'
+    }
+}
 
-var price;
-http.request(options, function(res){
-	let body = '';
+function consume(options) {
+    return new Promise((resolve, reject) => {
+        request(options, (err, res,  body) => {
+            if (err) {
+                reject(err);
+            }else{
+            	resolve(body);
+            }
+        });
+    });
+}
 
-	res.on('data', function(chunk){
-		body+=chunk;
-	});
+router.get('/:id',function(req,res){
+	for(key in req.params){
+		//res.write('\t'+key+' : '+req.params[key]);
+		let uriOp=`https://api.themoviedb.org/3/movie/${req.params[key]}?api_key=${api_key}&language=es-CO`;
+		options_movie.uri=uriOp;
+	}
+	consume(options_movie).then((dataMovie)=>{
+		consume(options_config).then((dataConfig)=>{
+			let DataMovieJ = JSON.parse(dataMovie);
+			let DataConfigJ = JSON.parse(dataConfig);
+			let imgUrlJ="";
+            imgUrlJ= imgUrlJ.concat(DataConfigJ.images.base_url, DataConfigJ.images.poster_sizes[1]);
 
-	res.on('end', function(){
-		price= JSON.parse(body);
-		console.log(price)
-	})
-}).end();*/
+            console.log(DataMovieJ.title);
+            res.render('movie',{title: 'The Movie DB', movieInfo: DataMovieJ, imgUrl: imgUrlJ});
 
-
-router.get('/:id?',function(req,res){
- res.write('handler: /users/:id? \n');
- res.write('Busco los parametros: \n');
- for(key in req.params){
-  res.write('\t'+key+' : '+req.params[key]);
- }
- res.write('\n');
- res.end(); 
+		}).catch((errconf)=>{
+			res.write('Error al cargar los datos. (configuration)');
+		});
+	}).catch((errmov)=>{
+		res.write('Error al cargar los datos. (Movie)');
+	}),()=>{
+		 res.end(); 
+	};
 });
 
 module.exports = router;
