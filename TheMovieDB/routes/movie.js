@@ -33,7 +33,6 @@ function consume(options) {
 
 router.get('/:id',function(req,res){
 	for(key in req.params){
-		//res.write('\t'+key+' : '+req.params[key]);
 		let uriOp=`https://api.themoviedb.org/3/movie/${req.params[key]}?api_key=${api_key}&language=es-CO`;
 		options_movie.uri=uriOp;
 	}
@@ -42,10 +41,10 @@ router.get('/:id',function(req,res){
 			let DataMovieJ = JSON.parse(dataMovie);
 			let DataConfigJ = JSON.parse(dataConfig);
 			let imgUrlJ="";
-            imgUrlJ= imgUrlJ.concat(DataConfigJ.images.base_url, DataConfigJ.images.poster_sizes[1]);
+            imgUrlJ= imgUrlJ.concat(DataConfigJ.images.base_url);
 
-            console.log(DataMovieJ.title);
-            res.render('movie',{title: 'The Movie DB', movieInfo: DataMovieJ, imgUrl: imgUrlJ});
+            console.log(DataMovieJ.tagline);
+            res.render('movie',{title: 'The Movie DB', movieInfo: DataMovieJ, configInfo: DataConfigJ, imgUrl: imgUrlJ});
 
 		}).catch((errconf)=>{
 			res.write('Error al cargar los datos. (configuration)');

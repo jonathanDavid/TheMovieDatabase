@@ -1,12 +1,37 @@
 extends layout
 
 block content
-	div(class="row justify-content-center bg-secondary")
-		div(class="col")
+
+	div(class="row p-5"  style="background-color: #eee")
+		div(class="row m-5")
+			div(class="col")
+				div(class="row justify-content-center")
+					div(class="col-sm-4 position-relative")
+						img(src=imgUrl+configInfo.images.poster_sizes[3]+movieInfo.poster_path, class="img-fluid m-2 rounded" alt="Image post")
+					div(class="jcard p-3 m-2 text-light position-relative" style="background-color: #607D8B")
+						h3: b= movieInfo.title
+						h5: b General
+						p= movieInfo.overview
+						p: b Fecha de extreno: #{movieInfo.release_date}
+						div(class="row")
+							div(class="col-2 p-2")
+								span(class="rounded-circle p-2 text-dark"  style="background-color: #eee")= movieInfo.vote_average	
+							div(class="col-8")
+								p Promedio de puntos por un total de #{movieInfo.vote_count} votos por partes de los ususarios:
+	div(class="row" style="background-color: #eee")
+		div(class="col-6 p-5")
 			div(class="row")
-				input(class="btn" type="submit" value="Volver a la Lista") 
+				h3: b Compañías (productoras)
 			div(class="row")
-				div(class="col")
-					img(src=imgUrl+movieInfo.poster_path, class="img-fluid rounded" alt="Image post")
-				div(class="col")
-					h3: b= movieInfo.title		
+				each prod in movieInfo.production_companies
+					div(class="card m-2 " style="width: 10rem")
+						img(class="card-img-top position-relative" src=imgUrl+configInfo.images.logo_sizes[3]+prod.logo_path)
+						div(class="card-body position-relative")
+							p: b(class="card-text")= prod.name
+		div(class="col p-5")
+			div(class="row")
+				h3: b(class="p-1 m-1") Generos: 
+			div(class="row")
+				div(class="row")
+					each gder in movieInfo.genres
+						p(class="bg-warning rounded-circle p-2 m-2")= gder.name

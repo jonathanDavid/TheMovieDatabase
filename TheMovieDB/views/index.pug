@@ -1,18 +1,40 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	p Todo esto esta en la primera pagina #{pageD}
+	div(class="p-2" style="background-color: #eee")
+		nav(aria-label="Page navigation example")
+			ul(class="pagination justify-content-center")
+				li(class="page-item rounded-left"): a(class="page-link" href="/1") 1
+				li(class="page-item"): a(class="page-link" href="/2") 2
+				li(class="page-item"): a(class="page-link" href="/3") 3
+				li(class="page-item rounded-right"): a(class="page-link" href="/4") 4
 
-
-	div(class="row justify-content-center")
+	div(class="row justify-content-center" style="background-color: #eee")
 		each movie in movies
-			div(class="card rowdis m-2" )  
-				a(class="alink" href="./movie/"+movie.id)
-					div(class="row")
-						div(class="col")
-							img(src=imgUrl+movie.poster_path, class="img-fluid rounded" alt="Image post")
-						div(class="col")
-							div(class="row p-2 text-center")
-								h6: b= movie.title								 
+			div(class="card  rowdis m-2 rounded-bottom position-relative" style="background-color: #607D8B")
+				div(class="container")
+					a(class="alink" href="./movie/"+movie.id)
+						div(class="row")
+							div(class="col-4 p-2 align-self-start")
+								img(src=imgUrl+movie.poster_path, class="img-fluid" alt="Image post")
+							div(class="col-8 text-light")
+								div(class="row")
+									div(class="col-6 p-2 text-left")
+										h6: b= movie.title
+									div(class="col-4 m-3")
+										span(class="rounded-circle p-2 text-dark"  style="background-color: #eee")= movie.vote_average
+								div(class="row")
+									p(class="pshort")= movie.overview
+								div(class="row align-items-end")
+									div(class="col")
+										p= movie.release_date 
+
+
+
+	div(class="p-2" style="background-color: #eee")
+		nav(aria-label="Page navigation example")
+			ul(class="pagination justify-content-center")
+				li(class="page-item rounded-left"): a(class="page-link" href="/1") 1
+				li(class="page-item"): a(class="page-link" href="/2") 2
+				li(class="page-item"): a(class="page-link" href="/3") 3
+				li(class="page-item rounded-right"): a(class="page-link" href="/4") 4

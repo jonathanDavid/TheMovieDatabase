@@ -5,7 +5,7 @@ const request = require('request');
 const api_key = "b29ba2335d06cf242272f5d0955bcffb";
 const options_movies = {
     method: 'GET',
-    uri: `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=es-CO&page=1`,
+    uri: "",
     headers: {
         'Content-Type': 'application/json'
     }
@@ -30,9 +30,16 @@ function consume(options) {
     });
 }
 
-
-
 router.get('/', function(req,res){
+    res.redirect("/1")
+});
+
+
+router.get('/:idP', function(req,res){
+    for(key in req.params){
+        let uriOp=`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=es-CO&page=${req.params[key]}`;
+        options_movies.uri=uriOp;
+    }
     consume(options_movies).then((dataMovies)=>{
     	consume(options_config).then((dataConfig)=>{
             let DataMovieJ = JSON.parse(dataMovies);

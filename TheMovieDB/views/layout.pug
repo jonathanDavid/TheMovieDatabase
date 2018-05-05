@@ -5,4 +5,19 @@ html
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div(class="row p-4 bg-dark")
+      a(class="alink" href="/1")
+        h1: b(class="p-2 text-light" style="diplay: block")= title
+      p(class="p-2 text-light" style="diplay: block") Bienvenido a #{title}
+
     block content
+
+
+  div(class="col bg-dark p-5")
+    div(class="row")
+      div(class="col-8 text-light")
+        h5: b Un pequeño proyecto desarollado con propósitos de aprendizaje.
+      div(class="col-4 text-light") 
+        p Jonathan David Ilias Del Rio
+    div(class="row text-light")
+      p © Bootstrap
