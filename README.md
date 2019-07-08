@@ -1,5 +1,5 @@
 # TheMovieDatabase
-Aplicacion que consume una API para desplegar informacion de peliculas.
+
 
 ## Description
 A small project using Nodejs with the Express framework, This project is a simple web page which consumes an api to show information of some movies.
